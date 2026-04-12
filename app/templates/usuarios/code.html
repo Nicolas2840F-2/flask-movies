@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon"
+        href="{{url_for('static',filename='imagenes/_d58e76bf-8eca-434d-ab7d-d9113663a482-removebg-preview.png')}}"
+        type="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+    <script src="../../static/src/codigo.js" defer></script>
+    <title>Código</title>
+    <style>
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-cover bg-center bg-no-repeat"
+    style="background-image: url(../../static/imagenes/_ae5e76d8-0dd7-41f0-838e-e19f43ad04c8.png);">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div id="alert-container" class="fixed top-0 right-0 mt-4 mr-4 z-50">
+        {% for category, message in messages %}
+        <div id="alert"
+            class="bg-white border border-gray-300 shadow rounded-lg p-4 {{ category }} opacity-0 transition-opacity duration-300 ease-in-out">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var alert = document.getElementById('alert');
+            var alertContainer = document.getElementById('alert-container');
+
+            if (alert) {
+                setTimeout(function () {
+                    alert.classList.remove('opacity-0');
+                    alert.classList.add('opacity-100');
+                }, 100);
+
+                setTimeout(function () {
+                    alert.classList.remove('opacity-100');
+                    alert.classList.add('opacity-0');
+                    setTimeout(function () {
+                        alertContainer.removeChild(alert);
+                    }, 300);
+                }, 4000);
+            }
+        });
+    </script>
+    <div class="w-full flex justify-center items-center h-screen ">
+        <div class="w-11/12 sm:w-3/4 lg:w-1/2 xl:w-1/3 bg-stone-950 p-8 rounded-lg borde">
+            <div class="flex justify-center mb-8">
+                <img class="w-40"
+                    src="{{url_for('static',filename='imagenes/_4f4fb6cb-53d3-4b00-954f-d17b408e190e-removebg-preview.png')}}"
+                    alt="user">
+            </div>
+            <div class="text-center mb-8">
+                <h1 class="text-slate-50 lg:max-2xl:text-5xl md:text-4xl text-2xl font-mono titulo2">Codigo de
+                    Restablecimiento</h1>
+            </div>
+            <div class="text-center mb-8">
+                <p class="text-slate-50 lg:max-2xl:text-xl md:text-xl text-base font-mono">Ingresa el código que
+                    envíamos a tu correo para verificar tu identidad</p>
+            </div>
+            <div class="grid justify-center items-center mb-4 text-center">
+                <label for="user_code_input" class="text-slate-50 text-2xl font-mono">Código</label>
+                <input type="text" id="user_code_input" maxlength="6"
+                    class="bg-stone-950 border-2 border-slate-500/50 caja w-full text-slate-50 py-0.5 pl-2 font-mono rounded-md">
+                <span id="codigo" class="text-sm text-rose-500"></span>
+                <a id="a" href="{{ url_for('usuario.password_new', id=id) }}"
+                    class="btn-neon bg-blue-600 md:bg-inherit hover:bg-blue-700 block w-full mt-8">
+                    <span id="span1"></span>
+                    <span id="span2"></span>
+                    <span id="span3"></span>
+                    <span id="span4"></span>
+                    Verificar Código
+                </a>
+            </div>
+        </div>
+    </div>
+    <input style="display: none;" type="hidden" value="{{encoded_reset_code}}" id="reset_code_encoded">
+</body>
+
+</html>
